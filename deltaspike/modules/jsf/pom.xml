@@ -39,6 +39,62 @@
         <module>impl</module>
     </modules>
 
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>analyze</id>
+                        <configuration>
+                            <failOnWarning>true</failOnWarning>
+                            <ignoredUnusedDeclaredDependencies>
+                                <ignoredUnusedDeclaredDependency>jakarta.el:jakarta.el-api</ignoredUnusedDeclaredDependency> <!-- declared in parent-code -->
+                                <ignoredUnusedDeclaredDependency>jakarta.interceptor:jakarta.interceptor-api</ignoredUnusedDeclaredDependency> <!-- declared in parent-code -->
+                                <ignoredUnusedDeclaredDependency>jakarta.transaction:jakarta.transaction-api</ignoredUnusedDeclaredDependency> <!-- declared in parent-code -->
+                                <ignoredUnusedDeclaredDependency>junit:junit</ignoredUnusedDeclaredDependency> <!-- declared in parent -->
+                                <ignoredUnusedDeclaredDependency>org.apache.deltaspike.test:test-utils</ignoredUnusedDeclaredDependency> <!-- declared in parent -->
+                                <ignoredUnusedDeclaredDependency>org.apache.geronimo.specs:geronimo-jpa_2.2_spec</ignoredUnusedDeclaredDependency> <!-- declared in parent-code -->
+                                <ignoredUnusedDeclaredDependency>org.apache.myfaces.core:myfaces-api</ignoredUnusedDeclaredDependency> <!-- declared in jsf-module-project -->
+                                <ignoredUnusedDeclaredDependency>org.apache.openwebbeans.arquillian:owb-arquillian-standalone</ignoredUnusedDeclaredDependency> <!-- declared in parent-code -->
+                                <ignoredUnusedDeclaredDependency>org.apache.openwebbeans:openwebbeans-impl</ignoredUnusedDeclaredDependency> <!-- declared in parent-code -->
+                                <ignoredUnusedDeclaredDependency>org.apache.openwebbeans:openwebbeans-spi</ignoredUnusedDeclaredDependency> <!-- declared in parent-code -->
+                                <ignoredUnusedDeclaredDependency>org.apache.tomcat:tomcat-servlet-api</ignoredUnusedDeclaredDependency> <!-- declared in parent-code -->
+                                <ignoredUnusedDeclaredDependency>org.jboss.arquillian.junit:arquillian-junit-container</ignoredUnusedDeclaredDependency> <!-- declared in parent -->
+                                <ignoredUnusedDeclaredDependency>org.jboss.arquillian.testenricher:arquillian-testenricher-cdi-jakarta</ignoredUnusedDeclaredDependency> <!-- declared in parent-code -->
+                            </ignoredUnusedDeclaredDependencies>
+                            <ignoreUnusedRuntime>true</ignoreUnusedRuntime>
+                        </configuration>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>require-explicit-dependency-scope</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireExplicitDependencyScope/>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
     <dependencies>
         <!-- JSF API, just for compiling -->
         <dependency>
